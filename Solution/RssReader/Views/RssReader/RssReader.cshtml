@@ -1,0 +1,65 @@
+﻿@{
+	ViewBag.Title = "RssReader";
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript" async src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.min.js")"></script>
+	
+	@*DataTables*@
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+	
+</head>
+	<body>
+	
+		<br/>
+
+		<div class="container">
+			<h2>Fetch rss news from the url below:</h2>
+
+			@using (Ajax.BeginForm("GetFeed", "RssReader", new AjaxOptions
+			{
+				HttpMethod = "GET",
+				UpdateTargetId = "feeds"
+			}))
+			{
+				<div class="input-group">
+					<span class="input-group-addon" id="basic-addon1">URL: </span>
+					<input name ="url" type="text" class="form-control" placeholder="url" aria-describedby="basic-addon1">
+					<button type="submit" class="btn btn-primary">Fetch</button>
+				</div>
+			}
+		
+			<br/>
+
+			<div id="feeds"></div>
+		</div>
+	
+	</body>
+</html>
+
+<script>
+	(function ($) {
+		$.startLoading = function () {
+			$("body").addClass('loading');
+		};
+
+		$.stopLoading = function () {
+			$("body").removeClass('loading');
+		};
+	})(jQuery);
+</script>
